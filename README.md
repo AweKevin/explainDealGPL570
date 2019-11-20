@@ -1,2 +1,2 @@
 # explainDealGPL570
- For onethird-lab
+ For onethird-lab to view how to use DealGPL570.
