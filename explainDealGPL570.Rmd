@@ -2,7 +2,6 @@
 title: "explainDealGPL570"
 author: "AweKevin"
 output:
-  pdf_document: default
   html_document: default
 ---
 
@@ -15,14 +14,24 @@ knitr::opts_chunk$set(echo = TRUE)
 ### 1. 从GSE数据库下载所有GPL570平台的RAW.tar文件（原始数据），可以用以下函数得到GSExxxx的原始数据的url直接扔进迅雷即可！
 ```{r}
 get_GSE_links <- 
-  function(studyID) {
+  function(studyID, type = "raw") {
+    if (type == "raw") {
     supp_link = paste0("ftp://ftp.ncbi.nlm.nih.gov/geo/series/", substr(studyID, 1, nchar(studyID) - 3), "nnn/", 
                        studyID, "/suppl/", studyID, "_RAW.tar")
+    return(supp_link)
+    }
+    
+    if (type == "meta") {
     meta_link = paste0("http://www.ncbi.nlm.nih.gov/geo/browse/?view=samples&mode=csv&series=", substr(studyID, 
                                                                                                        4, nchar(studyID)))
+    return(meta_link)
+    }
+    
+    if (type == "matrix") {
     matrix_link = paste0("ftp://ftp.ncbi.nlm.nih.gov/geo/series/", substr(studyID, 1, nchar(studyID) - 3), "nnn/", 
                          studyID, "/matrix/", studyID, "_series_matrix.txt.gz")
-    return(supp_link)
+    return(matrix_link)
+    }
   }
 ```
 ***
